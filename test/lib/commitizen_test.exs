@@ -4,11 +4,13 @@ defmodule CommitizenTest do
   test "groups commits" do
     commits = [
       "fix: i fix something",
+      "fix(scope): i fix something in scope",
       "feat: i add a feature",
-      "BREAKING CHANGE: i break something",
+      "BREAKING CHANGE: ignored",
+      "feat!: i add a feature and break something",
       "not noteworthy"
     ]
 
-    assert %{all: [_, _, _], patch: [_], feature: [_], breaking: [_]} = Expublish.Commitizen.run(commits)
+    assert %{all: [_, _, _, _], patch: [_, _], feature: [_], breaking: [_]} = Expublish.Commitizen.run(commits)
   end
 end
